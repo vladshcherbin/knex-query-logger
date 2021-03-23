@@ -1,6 +1,6 @@
 /* eslint-disable no-console, no-underscore-dangle */
-import { highlight } from 'highlight.js'
 import { gray, red, white, yellowBright } from 'colorette'
+import { highlight } from 'highlight.js'
 
 function colorize(part) {
   switch (part.kind) {
