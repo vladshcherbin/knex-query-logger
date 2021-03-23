@@ -1,8 +1,10 @@
 {
   "name": "knex-query-logger",
+  "description": "Highlight knex queries",
   "version": "0.1.0",
   "author": "Vlad Shcherbin <vlad.shcherbin@gmail.com>",
   "repository": "vladshcherbin/knex-query-logger",
+  "type": "module",
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint src",
@@ -20,5 +22,8 @@
   "files": [
     "src"
   ],
+  "engines": {
+    "node": ">=14"
+  },
   "license": "MIT"
 }
