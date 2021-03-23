@@ -19,7 +19,7 @@ export default function knexQueryLogger(knex) {
   const executedQueries = {}
 
   function highlightQuery({ bindings, sql }) {
-    return highlight('sql', knex.raw(sql, bindings).toString()).emitter.rootNode.children
+    return highlight(knex.raw(sql, bindings).toString(), { language: 'sql' }).emitter.rootNode.children
       .map((part) => ((typeof part === 'string') ? gray(part) : colorize(part)))
       .join('')
   }
