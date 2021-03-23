@@ -1,6 +1,6 @@
 /* eslint-disable no-console, no-underscore-dangle */
 import { gray, red, white, yellowBright } from 'colorette'
-import { highlight } from 'highlight.js'
+import hijs from 'highlight.js'
 
 function colorize(part) {
   switch (part.kind) {
@@ -19,7 +19,7 @@ export default function knexQueryLogger(knex) {
   const executedQueries = {}
 
   function highlightQuery({ bindings, sql }) {
-    return highlight(knex.raw(sql, bindings).toString(), { language: 'sql' }).emitter.rootNode.children
+    return hijs.highlight(knex.raw(sql, bindings).toString(), { language: 'sql' }).emitter.rootNode.children
       .map((part) => ((typeof part === 'string') ? gray(part) : colorize(part)))
       .join('')
   }
