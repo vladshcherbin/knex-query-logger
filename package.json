@@ -3,14 +3,10 @@
   "version": "0.1.0",
   "author": "Vlad Shcherbin <vlad.shcherbin@gmail.com>",
   "repository": "vladshcherbin/knex-query-logger",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.es.js",
+  "main": "src/index.js",
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "rollup -c",
     "lint": "eslint src",
-    "postpublish": "yarn clean",
-    "prepublishOnly": "yarn lint && yarn clean && yarn build"
+    "prepublishOnly": "yarn lint"
   },
   "dependencies": {
     "colorette": "^1.2.2",
@@ -19,13 +15,10 @@
   "devDependencies": {
     "eslint": "^7.3.1",
     "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.21.2",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.18.0",
-    "rollup-plugin-auto-external": "^2.0.0"
+    "eslint-plugin-import": "^2.21.2"
   },
   "files": [
-    "dist"
+    "src"
   ],
   "license": "MIT"
 }
