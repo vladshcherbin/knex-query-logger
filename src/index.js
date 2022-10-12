@@ -3,12 +3,11 @@ import { gray, red, white, yellowBright } from 'colorette'
 import hijs from 'highlight.js'
 
 function colorize(part) {
-  switch (part.kind) {
+  switch (part.scope) {
     case 'keyword':
-    case 'literal':
+    case 'operator':
       return gray(part.children[0].toUpperCase())
     case 'number':
-    case 'string':
       return yellowBright(part.children[0])
     default:
       return part.children[0]
@@ -19,8 +18,9 @@ export default function knexQueryLogger(knex) {
   const executedQueries = {}
 
   function highlightQuery({ bindings, sql }) {
-    return hijs.highlight(knex.raw(sql, bindings).toString(), { language: 'sql' }).emitter.rootNode.children
-      .map((part) => ((typeof part === 'string') ? gray(part) : colorize(part)))
+    return hijs.highlight(knex.raw(sql.replaceAll(/\$\d+/g, '?'), bindings).toString(), { language: 'sql' })
+      ._emitter.rootNode.children
+      .map((part) => ((typeof part === 'string') ? yellowBright(part) : colorize(part)))
       .join('')
   }
 
@@ -35,7 +35,7 @@ export default function knexQueryLogger(knex) {
     .on('query-error', (_, { __knexQueryUid }) => {
       const query = executedQueries[__knexQueryUid]
 
-      console.log(`${red('failed')} | ${highlightQuery(query)}`)
+      console.error(`${red('failted')} | ${highlightQuery(query)}`)
 
       delete executedQueries[__knexQueryUid]
     })
@@ -45,10 +45,10 @@ export default function knexQueryLogger(knex) {
       const duration = (Number(endTime - startTime) / 1e6).toFixed(2)
 
       if (query.sql) {
-        console.log(highlightQuery(query))
-        console.log(white(`${duration} ms`))
+        console.info(highlightQuery(query))
+        console.info(white(`${duration} ms`))
       } else {
-        console.log(red('Missing sql'))
+        console.info(red('Missing sql'))
       }
 
       delete executedQueries[__knexQueryUid]
