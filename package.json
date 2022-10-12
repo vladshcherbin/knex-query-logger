@@ -1,7 +1,7 @@
 {
   "name": "knex-query-logger",
   "description": "Highlight knex queries",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "author": "Vlad Shcherbin <vlad.shcherbin@gmail.com>",
   "repository": "vladshcherbin/knex-query-logger",
   "type": "module",
